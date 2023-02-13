@@ -14,7 +14,7 @@ class LoginViewController: BaseViewController{
     var mainView: LoginView{self.view as! LoginView}
     var loginViewModel: LoginViewModel?
     
-    //No init? I didn't need it here the last time, proably in the herolist
+    //TODO: No init? I didn't need it here the last time, proably in the herolist
     
     override func viewDidLoad() {
         super.viewDidLoad()
