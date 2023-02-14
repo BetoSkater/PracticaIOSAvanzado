@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D399E5B7299AE19E00EA1F8B /* Heroe.swift */; };
+		D39B6E0F299B93D7006A2662 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D39B6E0E299B93D7006A2662 /* Kingfisher */; };
+		D39B6E12299B9BBC006A2662 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39B6E11299B9BBC006A2662 /* AppTabBar.swift */; };
+		D39B6E17299BA10F006A2662 /* ResourceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39B6E16299BA10F006A2662 /* ResourceName.swift */; };
+		D39B6E19299BA263006A2662 /* TextString.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39B6E18299BA263006A2662 /* TextString.swift */; };
 		D3BE56C42996B7BA00B34527 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BE56C32996B7BA00B34527 /* AppDelegate.swift */; };
 		D3BE56C62996B7BA00B34527 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BE56C52996B7BA00B34527 /* SceneDelegate.swift */; };
 		D3BE56CD2996B7BB00B34527 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3BE56CC2996B7BB00B34527 /* Assets.xcassets */; };
@@ -47,6 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D399E5B7299AE19E00EA1F8B /* Heroe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heroe.swift; sourceTree = "<group>"; };
+		D39B6E11299B9BBC006A2662 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
+		D39B6E16299BA10F006A2662 /* ResourceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceName.swift; sourceTree = "<group>"; };
+		D39B6E18299BA263006A2662 /* TextString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextString.swift; sourceTree = "<group>"; };
 		D3BE56C02996B7BA00B34527 /* PracticaIOSAvanzado.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PracticaIOSAvanzado.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3BE56C32996B7BA00B34527 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3BE56C52996B7BA00B34527 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D39B6E0F299B93D7006A2662 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +108,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D39B6E10299B9B8E006A2662 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				D39B6E11299B9BBC006A2662 /* AppTabBar.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		D39B6E15299BA0ED006A2662 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D39B6E16299BA10F006A2662 /* ResourceName.swift */,
+				D39B6E18299BA263006A2662 /* TextString.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		D3BE56B72996B7BA00B34527 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +148,7 @@
 		D3BE56C22996B7BA00B34527 /* PracticaIOSAvanzado */ = {
 			isa = PBXGroup;
 			children = (
+				D39B6E15299BA0ED006A2662 /* Enums */,
 				D3BE56F52996B7DF00B34527 /* App */,
 				D3BE56F42996B7D200B34527 /* Networking */,
 				D3BE56F32996B7C900B34527 /* CoreData */,
@@ -176,6 +204,7 @@
 			children = (
 				D3BE57032996C63B00B34527 /* BaseViewController */,
 				D3BE56F72996B81F00B34527 /* BaseLaunch */,
+				D39B6E10299B9B8E006A2662 /* TabBar */,
 				D3BE56F82996BE4B00B34527 /* LogIn */,
 				D3C5F328299A9811008BC1A4 /* List */,
 				D3C5F327299A97E9008BC1A4 /* Detail */,
@@ -286,6 +315,7 @@
 		D3C5F32B299A9877008BC1A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D399E5B7299AE19E00EA1F8B /* Heroe.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,6 +414,9 @@
 			dependencies = (
 			);
 			name = PracticaIOSAvanzado;
+			packageProductDependencies = (
+				D39B6E0E299B93D7006A2662 /* Kingfisher */,
+			);
 			productName = PracticaIOSAvanzado;
 			productReference = D3BE56C02996B7BA00B34527 /* PracticaIOSAvanzado.app */;
 			productType = "com.apple.product-type.application";
@@ -456,6 +489,9 @@
 				Base,
 			);
 			mainGroup = D3BE56B72996B7BA00B34527;
+			packageReferences = (
+				D39B6E0D299B93D7006A2662 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = D3BE56C12996B7BA00B34527 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -498,6 +534,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D39B6E12299B9BBC006A2662 /* AppTabBar.swift in Sources */,
+				D39B6E19299BA263006A2662 /* TextString.swift in Sources */,
 				D3C5F339299A9937008BC1A4 /* DetailViewController.swift in Sources */,
 				D3C5F340299A99DD008BC1A4 /* ListViewController.swift in Sources */,
 				D3C5F337299A990C008BC1A4 /* DetailView.swift in Sources */,
@@ -507,9 +545,11 @@
 				D3C5F348299A9C19008BC1A4 /* MapViewModel.swift in Sources */,
 				D3C5F344299A9B96008BC1A4 /* MapView.swift in Sources */,
 				D3BE56FA2996C10900B34527 /* LoginView.swift in Sources */,
+				D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */,
 				D3BE57002996C19B00B34527 /* LoginViewController.swift in Sources */,
 				D3C5F342299A9A06008BC1A4 /* ListViewModel.swift in Sources */,
 				D3C5F33D299A99A9008BC1A4 /* ListView.swift in Sources */,
+				D39B6E17299BA10F006A2662 /* ResourceName.swift in Sources */,
 				D3BE57052996C65200B34527 /* BaseViewController.swift in Sources */,
 				D3C5F346299A9BF3008BC1A4 /* MapViewController.swift in Sources */,
 				D3BE56C62996B7BA00B34527 /* SceneDelegate.swift in Sources */,
@@ -838,6 +878,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D39B6E0D299B93D7006A2662 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D39B6E0E299B93D7006A2662 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D39B6E0D299B93D7006A2662 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D3BE56B82996B7BA00B34527 /* Project object */;
 }

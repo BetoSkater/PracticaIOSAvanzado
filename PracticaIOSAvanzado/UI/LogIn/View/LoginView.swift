@@ -7,9 +7,6 @@
 
 import UIKit
 
-enum ResourcesNames: String{
-    case loginBackground = "fondo2"
-}
 
 class LoginView: UIView{
     
@@ -18,7 +15,7 @@ class LoginView: UIView{
     let backgroundView: UIImageView = {
        let baseView = UIImageView()
         
-        baseView.image = UIImage(named: ResourcesNames.loginBackground.rawValue)
+        baseView.image = UIImage(named: ResourceName.loginBackground.rawValue)
         baseView.contentMode = .scaleAspectFill
         baseView.translatesAutoresizingMaskIntoConstraints = false
         

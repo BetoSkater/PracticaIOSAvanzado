@@ -20,7 +20,7 @@ class LoginViewController: BaseViewController{
         super.viewDidLoad()
         
         loginViewModel = LoginViewModel()
-        
+     
         //TODO: add here the button functionality
     }
     
