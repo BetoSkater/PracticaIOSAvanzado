@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D385ED3B299BDFE700A8EB4C /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D385ED3A299BDFE700A8EB4C /* APIEnums.swift */; };
+		D385ED3D299BE15A00A8EB4C /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D385ED3C299BE15A00A8EB4C /* NetworkLayer.swift */; };
 		D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D399E5B7299AE19E00EA1F8B /* Heroe.swift */; };
 		D39B6E0F299B93D7006A2662 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D39B6E0E299B93D7006A2662 /* Kingfisher */; };
 		D39B6E12299B9BBC006A2662 /* AppTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39B6E11299B9BBC006A2662 /* AppTabBar.swift */; };
@@ -52,6 +54,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D385ED3A299BDFE700A8EB4C /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
+		D385ED3C299BE15A00A8EB4C /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		D399E5B7299AE19E00EA1F8B /* Heroe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heroe.swift; sourceTree = "<group>"; };
 		D39B6E11299B9BBC006A2662 /* AppTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBar.swift; sourceTree = "<group>"; };
 		D39B6E16299BA10F006A2662 /* ResourceName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceName.swift; sourceTree = "<group>"; };
@@ -108,6 +112,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3836B61299C33C100700CF1 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		D39B6E10299B9B8E006A2662 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +162,7 @@
 				D39B6E15299BA0ED006A2662 /* Enums */,
 				D3BE56F52996B7DF00B34527 /* App */,
 				D3BE56F42996B7D200B34527 /* Networking */,
+				D3836B61299C33C100700CF1 /* Keychain */,
 				D3BE56F32996B7C900B34527 /* CoreData */,
 				D3BE56F62996B7E600B34527 /* UI */,
 				D3BE56CC2996B7BB00B34527 /* Assets.xcassets */,
@@ -186,6 +198,8 @@
 		D3BE56F42996B7D200B34527 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				D385ED3A299BDFE700A8EB4C /* APIEnums.swift */,
+				D385ED3C299BE15A00A8EB4C /* NetworkLayer.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -534,6 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D385ED3D299BE15A00A8EB4C /* NetworkLayer.swift in Sources */,
 				D39B6E12299B9BBC006A2662 /* AppTabBar.swift in Sources */,
 				D39B6E19299BA263006A2662 /* TextString.swift in Sources */,
 				D3C5F339299A9937008BC1A4 /* DetailViewController.swift in Sources */,
@@ -545,6 +560,7 @@
 				D3C5F348299A9C19008BC1A4 /* MapViewModel.swift in Sources */,
 				D3C5F344299A9B96008BC1A4 /* MapView.swift in Sources */,
 				D3BE56FA2996C10900B34527 /* LoginView.swift in Sources */,
+				D385ED3B299BDFE700A8EB4C /* APIEnums.swift in Sources */,
 				D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */,
 				D3BE57002996C19B00B34527 /* LoginViewController.swift in Sources */,
 				D3C5F342299A9A06008BC1A4 /* ListViewModel.swift in Sources */,
