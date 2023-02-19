@@ -8,30 +8,31 @@
 import UIKit
 
 class ListViewController: BaseViewController{
-    //TODO: 
+    //TODO:
     /*
      let employeeCoreData = employeeAPI.map { employee in
      //mapeo enplouyeeApi a employeeDB
      //devolverlo de employeeDB
-
-
+     
      return employeeDB
      }
-
      */
-     //MARK: - View Assigment -
+    //MARK: - View Assigment -
     
     var mainView: ListView{self.view as! ListView}
-    var viewModel: ListViewModel?
+    var listViewModel: ListViewModel?
     
-     //MARK: - No inits needed -
+    //MARK: - No inits needed -
     
-     //MARK: - ViewDidLoad & loadView overrides -
+    //MARK: - ViewDidLoad & loadView overrides -
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ListViewModel()
-        logInTest()
+        listViewModel = ListViewModel()
+        
+        checkIfUserIsAuthenticated()
+        
+        //  logInTest()
         
         //locationsTest()
     }
@@ -40,42 +41,59 @@ class ListViewController: BaseViewController{
         view = ListView()
     }
     
-     //MARK: - LogInTest -
+    //MARK: - LogInTest -
     
-    func logInTest(){
-     
-        
-        self.viewModel?.loginTransitionSuccessfull = {userLogged in
-            //TODO: El dismis va aqui.
-            
-            debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
-            self.heroesTest()
-        }
-        
+    private func logInTest(){
+        /*
+         self.loginViewModel?.loginTransitionSuccessfull = {userLogged in
+         //TODO: El dismis va aqui.
+         debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
+         self.heroesTest()
+         }
+         */
     }
     
-    func heroesTest(){
-        viewModel?.retrieveHeroes()
-        
-        self.viewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
+   private func heroesTest(){
+        listViewModel?.retrieveHeroes()
+        self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
             debugPrint("Heroe call worked")
         }
+        self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
+            debugPrint("Location call worked")
+        }
+    }
+    //MARK: - Checking ig the location call works, remove -
+   private func locationsTest(){
+        let heroe = Heroe(id: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94", name: "prueba", description: "prueba", favorite: true, photo: "photo prueba")
         
-        self.viewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
+        listViewModel?.retrieveLocations(for: heroe)
+        
+        self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
             debugPrint("Location call worked")
         }
     }
     
-    func locationsTest(){
-       // D13A40E5-4418-4223-9CE6-D2F9A28EBE94
+    //MARK: - Authentication related methods -
+    
+    private func retrieveTokenFromKeychain() -> String {
         
-       let heroe = Heroe(id: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94", name: "prueba", description: "prueba", favorite: true, photo: "photo prueba")
+        var token: String = ""
         
-        viewModel?.retrieveLocations(for: heroe)
-        
-        self.viewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
-            debugPrint("Location call worked")
+        listViewModel?.retrieveTokenFromKeychain()
+        listViewModel?.tokenRetrievedFromKeychain = { retrievedToken in
+            token = retrievedToken
         }
+        return token
+    }
+    
+   private func checkIfUserIsAuthenticated() -> Void{
         
+        if retrieveTokenFromKeychain().isEmpty{
+            
+            let loginViewController = LoginViewController()
+            loginViewController.modalPresentationStyle = .fullScreen
+            
+            self.navigationController?.present(loginViewController, animated: true)
+        }
     }
 }

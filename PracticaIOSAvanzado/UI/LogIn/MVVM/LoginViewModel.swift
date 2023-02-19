@@ -13,7 +13,32 @@ class LoginViewModel: NSObject{
         
     }
     
-    //TODO: añadir la propiedad del tipo cloasure para hacer la transicion si es que va aqui en este caso.
+    var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
+    var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
+    //Token
     
-    //TODO: Llamada al API
+    func logIn(with email: String, and password: String) -> (){
+        
+        //Api call:
+        NetworkLayer.shared.getToken(email: email, password: password) { token, error in
+            if let token {
+             
+                debugPrint("Login Token: --> \(token)")
+                //self.token = token //TODO: Remove this self.token = token
+                DispatchQueue.main.async {
+                    //TODO: SAving token in Keychain missing
+                    self.storeTokenAfterLogIn(this: token)
+                    self.loginTransitionSuccessfull?(true) //TODO: Check the ?.
+                }
+            }
+        }
+    }
+    
+    func storeTokenAfterLogIn(this token: String){
+        
+        KeychainManager.shared.storeToken(this: token)
+    }
+    
+    
+    
 }

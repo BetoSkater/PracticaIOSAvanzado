@@ -24,7 +24,7 @@ class LoginViewController: BaseViewController{
         loginViewModel = LoginViewModel()
      
         //TODO: add here the button functionality
-        
+        mainView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
     }
     
@@ -36,18 +36,26 @@ class LoginViewController: BaseViewController{
      //MARK: - Button methods -
    
    @objc func loginButtonTapped(sender: UIButton!){
-       
+       performLogIn()
    }
    
    func performLogIn(){
        //Retrieving login info:
-       
        if !mainView.emailTextField.text!.isEmpty && !mainView.passTextField.text!.isEmpty{
            
            let email = mainView.emailTextField.text!
            let password = mainView.passTextField.text!
            
-       //    loginViewModel?.logIn(with: email, and: password)
+           loginViewModel?.logIn(with: email, and: password)
+           
+           self.loginViewModel?.loginTransitionSuccessfull = {userLogged in
+           //TODO: El dismis va aqui.
+           debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
+               self.dismiss(animated: true)
+           }
+           
        }
    }
+    
+    
 }

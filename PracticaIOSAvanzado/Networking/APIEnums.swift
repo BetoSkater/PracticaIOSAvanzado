@@ -28,6 +28,7 @@ enum MiscValues:String{
     case name = "name"
     case emptyString = ""
     case id = "id"
+    case token = "token"
 }
 
 enum NetworkError: Error{

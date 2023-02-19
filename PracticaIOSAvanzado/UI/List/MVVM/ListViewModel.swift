@@ -16,13 +16,15 @@ class ListViewModel : NSObject{
     //TEsting that all the apiCalls work:
      //MARK: - Login -
     
-    var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
+    //var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
+    var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
+  
     var listViewDataRetrived: ((_ isHeroesInfoRetrieved: Bool) -> Void)?
     var mapViewDataRetrieved: ((_ isLocationInfoRetrived: Bool) -> Void)?
     
     var token: String? //TODO: remove this token, retrieve it from keychain in each func
     var heroesList: [Heroe] = []
-    
+    /*
     func logIn(with email: String, and password: String) -> (){
         
         //Api call:
@@ -39,7 +41,7 @@ class ListViewModel : NSObject{
             }
         }
     }
-    
+    */
      //TODO: - Move to heroes List viewModel, so here-
     
     func retrieveHeroes(){
@@ -52,17 +54,12 @@ class ListViewModel : NSObject{
           
                    self?.listViewDataRetrived?(true)
                   
-                    
                     retrievedHeroes.forEach { heroe in
                         self?.retrieveLocations(for: heroe)
                     }
-                    
-                    
                 }
             }
         }//if let token
-      
-        
     }
     
     //TODO: - Move location to mapviewModel
@@ -78,9 +75,8 @@ class ListViewModel : NSObject{
                         return
                     }
               
-                                       
                     debugPrint("It seems location call work")
-                  
+                //TODO: try to do this with a map
                     let id = heroe.id
                     let name = heroe.name
                     let desc = heroe.description
@@ -101,17 +97,24 @@ class ListViewModel : NSObject{
                                           dateShow: date,
                                           longitud: longitud)
                  
-                    
                     DispatchQueue.main.async {
-                        
-                         self?.heroesList.append(heroToAdd)
+                        self?.heroesList.append(heroToAdd)
                         self?.mapViewDataRetrieved?(true)
                         debugPrint("\(self?.heroesList.count)")
                     }
-                    
                 }
             }
         }//if let token
+    }
+    
+    
+    func retrieveTokenFromKeychain(){
+        
+        let token = KeychainManager.shared.retrieveToken()
+       
+        tokenRetrievedFromKeychain?(token)
         
     }
+    
+    
 }
