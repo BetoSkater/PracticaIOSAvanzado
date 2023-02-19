@@ -22,6 +22,7 @@ enum APIMethod: String{
 }
 
 enum MiscValues:String{
+    case basic = "Basic "
     case bearer = "Bearer "
     case authorization = "Authorization"
     case name = "name"
