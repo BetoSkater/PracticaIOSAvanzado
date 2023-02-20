@@ -32,8 +32,7 @@ class ListViewController: BaseViewController{
         
         checkIfUserIsAuthenticated()
         
-        //  logInTest()
-        
+        //logInTest()
         //locationsTest()
     }
     
@@ -42,17 +41,7 @@ class ListViewController: BaseViewController{
     }
     
     //MARK: - LogInTest -
-    
-    private func logInTest(){
-        /*
-         self.loginViewModel?.loginTransitionSuccessfull = {userLogged in
-         //TODO: El dismis va aqui.
-         debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
-         self.heroesTest()
-         }
-         */
-    }
-    
+ 
    private func heroesTest(){
         listViewModel?.retrieveHeroes()
         self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
@@ -79,21 +68,26 @@ class ListViewController: BaseViewController{
         
         var token: String = ""
         
-        listViewModel?.retrieveTokenFromKeychain()
-        listViewModel?.tokenRetrievedFromKeychain = { retrievedToken in
+        self.listViewModel?.tokenRetrievedFromKeychain = { retrievedToken in
             token = retrievedToken
+            debugPrint("inside the tokenRetrievedFromKeychain method")
         }
+        self.listViewModel?.retrieveTokenFromKeychain()
+    
         return token
     }
     
    private func checkIfUserIsAuthenticated() -> Void{
         
-        if retrieveTokenFromKeychain().isEmpty{
-            
-            let loginViewController = LoginViewController()
-            loginViewController.modalPresentationStyle = .fullScreen
-            
-            self.navigationController?.present(loginViewController, animated: true)
-        }
+       let value = retrieveTokenFromKeychain()
+       DispatchQueue.main.async {
+           if value.isEmpty{
+               
+               let loginViewController = LoginViewController()
+               loginViewController.modalPresentationStyle = .fullScreen
+               
+               self.navigationController?.present(loginViewController, animated: true)
+           }
+       }
     }
 }

@@ -18,7 +18,8 @@ class ListViewModel : NSObject{
     
     //var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
     var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
-  
+   
+    
     var listViewDataRetrived: ((_ isHeroesInfoRetrieved: Bool) -> Void)?
     var mapViewDataRetrieved: ((_ isLocationInfoRetrived: Bool) -> Void)?
     
@@ -111,10 +112,11 @@ class ListViewModel : NSObject{
     func retrieveTokenFromKeychain(){
         
         let token = KeychainManager.shared.retrieveToken()
-       
-        tokenRetrievedFromKeychain?(token)
+        
+ 
+            self.tokenRetrievedFromKeychain?(token)
+        
+         
         
     }
-    
-    
 }

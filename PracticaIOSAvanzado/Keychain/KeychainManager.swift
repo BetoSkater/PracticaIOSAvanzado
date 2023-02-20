@@ -38,7 +38,7 @@ class KeychainManager{
     //Method to retrieve the token:
     
     func retrieveToken() -> String{
-        
+        var token = ""
         //Query:
         let query: [String: Any] = [
         
@@ -57,18 +57,18 @@ class KeychainManager{
             if let existingItem = item as? [String: Any],
                let tokenToRetrieve = existingItem[kSecAttrAccount as String] as? String,
                let tokenData = existingItem[kSecValueData as String] as? Data,
-               let token = String(data: tokenData, encoding: .utf8){
+               let tokenDecoded = String(data: tokenData, encoding: .utf8){
                 
+                
+               token = tokenDecoded
                 debugPrint("Token value is \(token)")
-               
-                return token
                 
             }else{
                 debugPrint("There wasa problem while fetching the token from keychain")
-                return ""
+               
             }
         }
-        return ""
+        return token
     }
     
 }
