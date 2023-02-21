@@ -10,8 +10,21 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+     //MARK: - CoreData -
 
-
+    lazy var coreDataManager: CoreDataManager = .init(modelName: "Heroes")
+    
+    static let sharedAppDelegate: AppDelegate = {
+        
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate else {
+            fatalError("CoreData AppDelegate Error: error during the AppDelegate creation.")
+        }
+        return delegate
+    }()
+    
+    
+     //MARK: - Core App Delegate Methods -
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true

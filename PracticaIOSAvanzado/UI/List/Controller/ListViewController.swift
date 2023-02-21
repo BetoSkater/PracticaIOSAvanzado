@@ -22,6 +22,8 @@ class ListViewController: BaseViewController{
     var mainView: ListView{self.view as! ListView}
     var listViewModel: ListViewModel?
     
+    var heroesList: [Heroe] = []
+    
     //MARK: - No inits needed -
     
     //MARK: - ViewDidLoad & loadView overrides -
@@ -32,6 +34,14 @@ class ListViewController: BaseViewController{
         
         checkIfUserIsAuthenticated()
         
+        
+        listViewModel?.dataRetrievedFromApiAndStoredInCoreData = {success in
+            self.checkAndRetrieveHeroesFromCoreData()
+        }
+        
+        checkAndRetrieveHeroesFromCoreData()
+        
+        
         //logInTest()
         //locationsTest()
     }
@@ -41,7 +51,7 @@ class ListViewController: BaseViewController{
     }
     
     //MARK: - LogInTest -
- 
+ /*
    private func heroesTest(){
         listViewModel?.retrieveHeroes()
         self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
@@ -61,12 +71,12 @@ class ListViewController: BaseViewController{
             debugPrint("Location call worked")
         }
     }
-    
+    */
     //MARK: - Authentication related methods -
     
     private func retrieveTokenFromKeychain() -> String {
         
-        var token: String = ""
+       // var token: String = ""
         
         self.listViewModel?.tokenRetrievedFromKeychain = { retrievedToken in
             token = retrievedToken
@@ -89,5 +99,43 @@ class ListViewController: BaseViewController{
                self.navigationController?.present(loginViewController, animated: true)
            }
        }
+    }
+    
+    private func checkAndRetrieveHeroesFromCoreData(){
+        
+        listViewModel?.coreDataRetrieveHeroes = { coreDataHeroes, coreDataIsEmpty in
+           
+                if let coreDataHeroes{
+                    self.heroesList = coreDataHeroes
+                    //TODO: Here goes a table view refresh.
+                    self.heroesList.forEach { heroe in
+                        debugPrint("\(heroe.name): \(heroe.id), \(heroe.favorite), \(heroe.photo), location, \(heroe.locationID),latitud:\(heroe.latitud), longitud: \(heroe.longitud), date: \(heroe.dateShow) ")
+                    }
+                    debugPrint("HeroesList has a size of: \(self.heroesList.count)")
+                }else {
+                    //TODO: Llamar al metodo que traiga los datos de la API
+                    debugPrint("coreDataHeroes is empty")
+                    
+                        self.callApiAndStoreTheResultInCoreData()
+                }
+            
+            
+            
+            
+        }
+        listViewModel?.retrieveHeroesFromCoreData()
+    }
+    //Method to call teh APICall
+    
+    private func callApiAndStoreTheResultInCoreData(){
+        self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
+            debugPrint("Heroe call worked")
+        }
+        self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
+            debugPrint("Location call worked")
+        }
+        
+        listViewModel?.retrieveHeroes(using: token)
+        
     }
 }
