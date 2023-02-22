@@ -51,7 +51,7 @@ class ListViewModel : NSObject{
     */
      //TODO: - Move to heroes List viewModel, so here-
     
-    func retrieveHeroes(using token: String){
+    func retrieveHeroes(){
         //TODO: Retrieve token, I think that I must retrieve the token in here.
         //ApiCall
       
@@ -171,10 +171,7 @@ class ListViewModel : NSObject{
                     debugPrint("No data was retrieved from coreData")
                     self.coreDataRetrieveHeroes?(nil, true)
                 }
-           
-          
-            
-            
+    
             
         } catch let error as NSError{
             debugPrint("CoreData retrieved heroes: \(error)")

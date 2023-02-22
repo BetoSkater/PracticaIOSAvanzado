@@ -36,14 +36,13 @@ class ListViewController: BaseViewController{
         
         
         listViewModel?.dataRetrievedFromApiAndStoredInCoreData = {success in
+            
+           
             self.checkAndRetrieveHeroesFromCoreData()
         }
         
         checkAndRetrieveHeroesFromCoreData()
         
-        
-        //logInTest()
-        //locationsTest()
     }
     
     override func loadView() {
@@ -101,9 +100,9 @@ class ListViewController: BaseViewController{
        }
     }
     
-    private func checkAndRetrieveHeroesFromCoreData(){
+    private func checkAndRetrieveHeroesFromCoreData() {
         
-        listViewModel?.coreDataRetrieveHeroes = { coreDataHeroes, coreDataIsEmpty in
+         listViewModel?.coreDataRetrieveHeroes = { coreDataHeroes, coreDataIsEmpty in
            
                 if let coreDataHeroes{
                     self.heroesList = coreDataHeroes
@@ -115,27 +114,29 @@ class ListViewController: BaseViewController{
                 }else {
                     //TODO: Llamar al metodo que traiga los datos de la API
                     debugPrint("coreDataHeroes is empty")
-                    
-                        self.callApiAndStoreTheResultInCoreData()
+                    Task{
+                        await self.callApiAndStoreTheResultInCoreData()
+                    }
+                    //self.callApiAndStoreTheResultInCoreData()
                 }
-            
-            
-            
-            
         }
-        listViewModel?.retrieveHeroesFromCoreData()
+        
+       listViewModel?.retrieveHeroesFromCoreData()
     }
     //Method to call teh APICall
     
-    private func callApiAndStoreTheResultInCoreData(){
+    private func callApiAndStoreTheResultInCoreData() async {
         self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
             debugPrint("Heroe call worked")
         }
         self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
             debugPrint("Location call worked")
         }
-        
-        listViewModel?.retrieveHeroes(using: token)
-        
+        /*
+        Task {
+           await  listViewModel?.retrieveHeroes()
+        }
+         */
+        listViewModel?.retrieveHeroes()
     }
 }
