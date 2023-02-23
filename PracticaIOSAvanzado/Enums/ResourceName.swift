@@ -19,4 +19,7 @@ enum ResourceName: String{
     //Colours
     case gokuBlue = "gokuBlue"
     case gokuOrange = "gokuOrange"
+    
+    //TableView:
+    case tableCell = "ListViewCell"
 }

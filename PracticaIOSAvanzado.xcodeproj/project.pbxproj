@@ -10,6 +10,9 @@
 		D36906F129A53BEF008EA2AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36906F029A53BEF008EA2AE /* Global.swift */; };
 		D3806678299CF2AB003B85F6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3806677299CF2AB003B85F6 /* Location.swift */; };
 		D380E0C329A26FA4007735E6 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D380E0C229A26FA4007735E6 /* KeychainManager.swift */; };
+		D3842EBD29A6282F00B7BC37 /* ListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3842EBC29A6282F00B7BC37 /* ListViewCell.swift */; };
+		D3842EBF29A6313100B7BC37 /* ListViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3842EBE29A6313100B7BC37 /* ListViewDataSource.swift */; };
+		D3842EC129A6313D00B7BC37 /* ListViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3842EC029A6313D00B7BC37 /* ListViewDelegate.swift */; };
 		D385ED3B299BDFE700A8EB4C /* APIEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D385ED3A299BDFE700A8EB4C /* APIEnums.swift */; };
 		D385ED3D299BE15A00A8EB4C /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D385ED3C299BE15A00A8EB4C /* NetworkLayer.swift */; };
 		D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D399E5B7299AE19E00EA1F8B /* Heroe.swift */; };
@@ -64,6 +67,9 @@
 		D36906F029A53BEF008EA2AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D3806677299CF2AB003B85F6 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D380E0C229A26FA4007735E6 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		D3842EBC29A6282F00B7BC37 /* ListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewCell.swift; sourceTree = "<group>"; };
+		D3842EBE29A6313100B7BC37 /* ListViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewDataSource.swift; sourceTree = "<group>"; };
+		D3842EC029A6313D00B7BC37 /* ListViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewDelegate.swift; sourceTree = "<group>"; };
 		D385ED3A299BDFE700A8EB4C /* APIEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnums.swift; sourceTree = "<group>"; };
 		D385ED3C299BE15A00A8EB4C /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		D399E5B7299AE19E00EA1F8B /* Heroe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heroe.swift; sourceTree = "<group>"; };
@@ -350,6 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				D3C5F33C299A99A9008BC1A4 /* ListView.swift */,
+				D3842EBC29A6282F00B7BC37 /* ListViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -366,6 +373,8 @@
 			isa = PBXGroup;
 			children = (
 				D3C5F33F299A99DD008BC1A4 /* ListViewController.swift */,
+				D3842EBE29A6313100B7BC37 /* ListViewDataSource.swift */,
+				D3842EC029A6313D00B7BC37 /* ListViewDelegate.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -594,14 +603,17 @@
 				D3A5F5F329A3E61800B40594 /* Heroes.xcdatamodeld in Sources */,
 				D3A5F5FA29A4210900B40594 /* Tools.swift in Sources */,
 				D399E5B8299AE19E00EA1F8B /* Heroe.swift in Sources */,
+				D3842EBD29A6282F00B7BC37 /* ListViewCell.swift in Sources */,
 				D3BE57002996C19B00B34527 /* LoginViewController.swift in Sources */,
 				D3A5F5F729A3F78700B40594 /* Heroes+CoreDataClass.swift in Sources */,
 				D3C5F342299A9A06008BC1A4 /* ListViewModel.swift in Sources */,
+				D3842EBF29A6313100B7BC37 /* ListViewDataSource.swift in Sources */,
 				D36906F129A53BEF008EA2AE /* Global.swift in Sources */,
 				D3A5F5F529A3F2DC00B40594 /* CoreDataManager.swift in Sources */,
 				D380E0C329A26FA4007735E6 /* KeychainManager.swift in Sources */,
 				D3C5F33D299A99A9008BC1A4 /* ListView.swift in Sources */,
 				D39B6E17299BA10F006A2662 /* ResourceName.swift in Sources */,
+				D3842EC129A6313D00B7BC37 /* ListViewDelegate.swift in Sources */,
 				D3BE57052996C65200B34527 /* BaseViewController.swift in Sources */,
 				D3C5F346299A9BF3008BC1A4 /* MapViewController.swift in Sources */,
 				D3BE56C62996B7BA00B34527 /* SceneDelegate.swift in Sources */,

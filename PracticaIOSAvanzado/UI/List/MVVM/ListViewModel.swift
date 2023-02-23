@@ -52,7 +52,6 @@ class ListViewModel : NSObject{
      //TODO: - Move to heroes List viewModel, so here-
     
     func retrieveHeroes(){
-        //TODO: Retrieve token, I think that I must retrieve the token in here.
         //ApiCall
       
         if !token.isEmpty{
@@ -110,8 +109,7 @@ class ListViewModel : NSObject{
                     DispatchQueue.main.async {
                         self?.heroesList.append(heroToAdd)
                         self?.mapViewDataRetrieved?(true)
-                        debugPrint("\(self?.heroesList.count)")
-                        //TODO: Store values in CoreData
+                        debugPrint("Heroes in coreData: \(self?.heroesList.count)")
                         self?.saveHero(saving: heroToAdd)
                     }
                 }

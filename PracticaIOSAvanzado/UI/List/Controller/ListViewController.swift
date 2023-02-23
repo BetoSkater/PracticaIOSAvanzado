@@ -20,17 +20,29 @@ class ListViewController: BaseViewController{
     //MARK: - View Assigment -
     
     var mainView: ListView{self.view as! ListView}
-    var listViewModel: ListViewModel?
+    private var listViewModel: ListViewModel?
+    private var listViewDataSource: ListViewDataSource?
+    private var listViewDelegate: ListViewDelegate?
+    
+    
+    
     
     var heroesList: [Heroe] = []
     
-    //MARK: - No inits needed -
+    //MARK: - No Inits Requiered-
+ 
+    
     
     //MARK: - ViewDidLoad & loadView overrides -
     
     override func viewDidLoad() {
         super.viewDidLoad()
         listViewModel = ListViewModel()
+        setTableComponents()
+        setDidTapOnCell()
+        
+        navigationItem.title = "hola"
+      //TODO: this way seems to be cooler  navigationItem.searchController
         
         checkIfUserIsAuthenticated()
         
@@ -42,6 +54,8 @@ class ListViewController: BaseViewController{
         }
         
         checkAndRetrieveHeroesFromCoreData()
+        
+        
         
     }
     
@@ -100,6 +114,7 @@ class ListViewController: BaseViewController{
        }
     }
     
+     //MARK: - Retrieving data related methods -
     private func checkAndRetrieveHeroesFromCoreData() {
         
          listViewModel?.coreDataRetrieveHeroes = { coreDataHeroes, coreDataIsEmpty in
@@ -107,6 +122,8 @@ class ListViewController: BaseViewController{
                 if let coreDataHeroes{
                     self.heroesList = coreDataHeroes
                     //TODO: Here goes a table view refresh.
+                    self.listViewDataSource?.set(list: self.heroesList)
+                    
                     self.heroesList.forEach { heroe in
                         debugPrint("\(heroe.name): \(heroe.id), \(heroe.favorite), \(heroe.photo), location, \(heroe.locationID),latitud:\(heroe.latitud), longitud: \(heroe.longitud), date: \(heroe.dateShow) ")
                     }
@@ -139,4 +156,33 @@ class ListViewController: BaseViewController{
          */
         listViewModel?.retrieveHeroes()
     }
+    
+  //MARK: - TableView Related Methods -
+    //set up method
+    private func setTableComponents(){
+        listViewDelegate = ListViewDelegate()
+        listViewDataSource = ListViewDataSource(tableView: mainView.tableView)
+        mainView.tableView.dataSource = listViewDataSource
+        mainView.tableView.delegate = listViewDelegate
+    }
+    
+    //didTapOnCell
+    
+    private func setDidTapOnCell(){
+        listViewDelegate?.didTapOnCell = { [weak self] index in
+            
+            guard let dataSource = self?.listViewDataSource else {return}
+            
+            let heroeModel = dataSource.list[index]
+            
+            let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
+            
+            self?.present(heroeDetailVC, animated: true)
+            
+        }
+    }
+    
+    //load coreData info in the tableView
+    
+  
 }

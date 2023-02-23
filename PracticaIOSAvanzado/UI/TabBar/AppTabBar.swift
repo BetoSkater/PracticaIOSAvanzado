@@ -16,7 +16,7 @@ class AppTabBar: UITabBarController{
         
         setUpLayout()
         setUpTabs()
-        
+        setUpLayoutBorder()
        
     }
     
@@ -43,8 +43,10 @@ class AppTabBar: UITabBarController{
     //MARK: - Set Up Layout -
         
     private func setUpLayout(){
-        tabBar.barTintColor = UIColor(named: ResourceName.gokuOrange.rawValue)
+       // tabBar.barTintColor = UIColor(named: ResourceName.gokuOrange.rawValue)
         tabBar.tintColor = UIColor(named: ResourceName.gokuBlue.rawValue)
+        tabBar.backgroundColor = UIColor(named: ResourceName.gokuOrange.rawValue)
+        
     }
     
     private func setUpLayoutBorder(){

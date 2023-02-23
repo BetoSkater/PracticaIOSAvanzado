@@ -91,5 +91,15 @@ class DetailView: UIView{
         
         ])
     }
+    
+    
+     //MARK: - update UI method -
+    
+    func configureDetailView(_ model: Heroe){
+        self.detailImage.kf.setImage(with: URL(string: model.photo))
+        self.detailName.text = model.name
+        self.detailDescription.text = model.description
+    }
+    
 }
 
