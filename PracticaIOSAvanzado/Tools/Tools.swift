@@ -9,6 +9,8 @@ import Foundation
 
 class Tools {
     
+    static let shared = Tools()
+    
      //MARK: - Formatters -
  
     func stringToDate(this date: String) -> Date{
@@ -27,8 +29,21 @@ class Tools {
    
         return date
     }
+    
+     //MARK: - Converters -
+    
+    func fromOptionalStringToDouble(this value: String?) -> Double{
+        if let value{
+            guard let number = Double(value) else{
+                debugPrint("Error while parsing string to double")
+                return 0.0
+            }
+            return number
+        }
+        return 0.0
+    }
   
-    //MARK: - Maps -
+    //MARK: - Data Maps -
     
     //Map from HeroeCD to Heroe:
  
@@ -45,7 +60,6 @@ class Tools {
 
     func heroeCDToHeroe(this heroe: HeroeCD) -> Heroe {
         
-    
         let id = heroe.id?.uuidString
         let dateString = heroe.dateShow?.formatted()
         
@@ -54,7 +68,4 @@ class Tools {
         return convertedHero
         
     }
-   
-    
-    
 }
