@@ -28,6 +28,7 @@ class ListViewModel : NSObject{
     
     var coreDataRetrieveHeroes: ((_ retrievedHerosFromCoreData: [Heroe]?, _ coreDataIsEmpty: Bool) -> Void)?
     
+    var deletedTokenFromKeychainSuccesful: ((_ succesfull: Bool) -> Void)?
     
    // var token: String? //TODO: remove this token, retrieve it from keychain in each func
     var heroesList: [Heroe] = []
@@ -117,12 +118,21 @@ class ListViewModel : NSObject{
         }//if let token
     }
     
+     //MARK: - Keychain related methods -
     
     func retrieveTokenFromKeychain(){
         
         let token = KeychainManager.shared.retrieveToken()
         self.tokenRetrievedFromKeychain?(token)
         
+    }
+    
+    func deleteTokenFromKeychain(){
+        
+        let tokenHasBeenDeleted = KeychainManager.shared.deletetoken()
+        if tokenHasBeenDeleted{
+            self.deletedTokenFromKeychainSuccesful?(tokenHasBeenDeleted)
+        }
     }
     
      //MARK: - CoreData -

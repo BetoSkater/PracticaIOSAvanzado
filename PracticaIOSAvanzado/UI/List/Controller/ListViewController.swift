@@ -40,23 +40,19 @@ class ListViewController: BaseViewController{
         listViewModel = ListViewModel()
         setTableComponents()
         setDidTapOnCell()
+        //TODO: this way seems to be cooler  navigationItem.searchController
+        setNavigationItemLogOutButton()
         
-        navigationItem.title = "hola"
-      //TODO: this way seems to be cooler  navigationItem.searchController
         
         checkIfUserIsAuthenticated()
         
         
         listViewModel?.dataRetrievedFromApiAndStoredInCoreData = {success in
-            
-           
             self.checkAndRetrieveHeroesFromCoreData()
         }
         
         checkAndRetrieveHeroesFromCoreData()
-        
-        
-        
+ 
     }
     
     override func loadView() {
@@ -85,6 +81,15 @@ class ListViewController: BaseViewController{
         }
     }
     */
+    
+     //MARK: - setUpNavigationItemButton -
+    
+    func setNavigationItemLogOutButton(){
+        navigationItem.title = "Heroes List"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(performLogOutTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .red
+    }
+    
     //MARK: - Authentication related methods -
     
     private func retrieveTokenFromKeychain() -> String {
@@ -112,6 +117,19 @@ class ListViewController: BaseViewController{
                self.navigationController?.present(loginViewController, animated: true)
            }
        }
+    }
+    
+     //MARK: - Log Out methods -
+    
+    @objc func performLogOutTapped(_ sender: UIBarButtonItem) -> Void{
+        debugPrint("performLogOutTapped")
+        
+        listViewModel?.deletedTokenFromKeychainSuccesful = { success in
+            token = ""
+            self.viewDidLoad()
+        }
+        
+        listViewModel?.deleteTokenFromKeychain()
     }
     
      //MARK: - Retrieving data related methods -

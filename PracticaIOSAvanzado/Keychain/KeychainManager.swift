@@ -71,4 +71,27 @@ class KeychainManager{
         return token
     }
     
+    
+     //MARK: - Delete token -
+    
+    func deletetoken() -> Bool{
+        
+        //Query
+        
+        let query: [String:Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: MiscValues.token.rawValue
+        ]
+        
+        //Execute query:
+        
+        if (SecItemDelete(query as CFDictionary)) == noErr{
+            debugPrint("Deleted token")
+            return true
+        }else{
+            debugPrint("There was an error while deleting the token")
+            return false
+        }
+    }
+    
 }
