@@ -16,6 +16,8 @@ class Callout: UIView {
     
     private let mapViewAnnotation: MapViewAnnotation
     
+    var goingTotheHeroeDetailsView : ((Heroe) -> Void)?
+    
      //MARK: - Inits -
     
     init(mapViewAnnotation: MapViewAnnotation){
@@ -33,6 +35,9 @@ class Callout: UIView {
  
     func setUpView(){
         translatesAutoresizingMaskIntoConstraints = false
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToDetailView)))
+        
         setUpHeroeNameLabel()
         setUpDateLabel()
         setUpHeroeImage()
@@ -88,5 +93,16 @@ class Callout: UIView {
         //TODO: Set navigation in here
         
         debugPrint("goingToDetailView activated.")
+      /*
+        let heroeModel = Heroe(id: "", name: "auxDate! ?? ", description: "desc", favorite: true, photo: "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/freezer-dragon-ball-bebe-abj.jpg?width=300")
+        
+        //let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
+        
+        self.mapViewAnnotation.heroeDate
+        
+   //     goingTotheHeroeDetailsView()
+        
+       // present(heroeDetailVC, animated: true)
+        */
     }
 }

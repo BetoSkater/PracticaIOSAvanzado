@@ -155,9 +155,21 @@ extension MapViewController: MKMapViewDelegate{
         }
         return nil
     }
+    //TODO: To show the detail view this does not work, this code shows the detail view without showing the annotation in the map.
     /*
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         debugPrint("inside the didSelect method")
+        
+        let auxName = view.annotation?.title
+        let auxDate = view.annotation?.subtitle
+        let photo = "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/freezer-dragon-ball-bebe-abj.jpg?width=300"
+        
+        
+        let heroeModel = Heroe(id: "", name: "auxDate! ?? ", description: "desc", favorite: true, photo: photo)
+        
+        let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
+        
+        self.present(heroeDetailVC, animated: true)
     }
     */
 }

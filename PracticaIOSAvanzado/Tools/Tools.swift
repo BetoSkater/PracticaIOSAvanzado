@@ -68,4 +68,13 @@ class Tools {
         return convertedHero
         
     }
+    /*
+    func fromMapViewAnnotationToHeroeConverter(convertThis dataModel: MapViewAnnotation) -> Heroe{
+        
+       // let id = dataModel.
+    //TODO: MapViewAnnotation does not have all the data, check it later.
+        
+        return Heroe(id: <#T##String#>, name: <#T##String#>, description: <#T##String#>, favorite: <#T##Bool#>, photo: <#T##String#>)
+    }
+    */
 }
