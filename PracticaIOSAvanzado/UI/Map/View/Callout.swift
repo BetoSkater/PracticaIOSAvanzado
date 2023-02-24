@@ -33,9 +33,9 @@ class Callout: UIView {
  
     func setUpView(){
         translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        
+        setUpHeroeNameLabel()
+        setUpDateLabel()
+        setUpHeroeImage()
     }
     
     private func setUpHeroeNameLabel(){
@@ -43,15 +43,18 @@ class Callout: UIView {
         
         addSubview(heroeNameLabel)
         heroeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        heroeNameLabel.topAnchor.constraint(equalTo: topAnchor,constant: 5).isActive = true
+        heroeNameLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         heroeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 5).isActive = true
         heroeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: 5).isActive = true
+        
+       
         
     }
     
     
     private func setUpDateLabel(){
-        dateLabel.text = mapViewAnnotation.heroeDate.formatted(date: .complete, time: .complete)
+        //dateLabel.text = mapViewAnnotation.heroeDate.formatted(date: .complete, time: .complete)
+        dateLabel.text = mapViewAnnotation.heroeDate
         
         addSubview(dateLabel)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +75,8 @@ class Callout: UIView {
         heroeImage.translatesAutoresizingMaskIntoConstraints = false
         heroeImage.topAnchor.constraint(equalTo: dateLabel.bottomAnchor,constant: 5).isActive = true
         heroeImage.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 5).isActive = true
-        heroeImage.trailingAnchor.constraint(equalTo: trailingAnchor,constant: 5).isActive = true
+        heroeImage.trailingAnchor.constraint(equalTo: trailingAnchor,constant: -5).isActive = true
+        heroeImage.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         heroeImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         heroeImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
         

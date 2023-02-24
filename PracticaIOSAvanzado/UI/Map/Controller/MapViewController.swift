@@ -28,10 +28,7 @@ class MapViewController: BaseViewController{
         super.viewDidLoad()
         //Setting values:
         mapViewModel = MapViewModel()
-        /*
-         <key>NSLocationWhenInUseUsageDescription<\key>
-        <string>This App needs your location<\string>
-         */
+    
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.delegate = self
@@ -42,6 +39,13 @@ class MapViewController: BaseViewController{
         
         //Retrieven the data needed:
         retrieveHeroesFromCoreData()
+        
+        
+        mainView.mapFrame.register(MapViewAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        
+        let annotations = heroesList.map {MapViewAnnotation(heroe: $0)}
+        
+        mainView.mapFrame.showAnnotations(annotations, animated: true)
         
     }
     
@@ -63,7 +67,30 @@ class MapViewController: BaseViewController{
         mapViewModel?.retrieveHeroesFromCoreData()
     }
     
+    //MARK: - Anotation Methods -
+
+   func createHeroeAnnotation(with heroe: Heroe){
+       let annotation = MKPointAnnotation()
+       
+       let latitud = Tools.shared.fromOptionalStringToDouble(this: heroe.latitud)
+       let longitud = Tools.shared.fromOptionalStringToDouble(this: heroe.longitud)
+       
+       
+       annotation.coordinate = CLLocationCoordinate2D(latitude: latitud, longitude: longitud)
+       annotation.title = heroe.name
+       annotation.subtitle = heroe.dateShow
+       
+       mainView.mapFrame.addAnnotation(annotation)
+   }
+    
+    func createAnnotations(from heroes: [Heroe]){
+        heroes.forEach(createHeroeAnnotation)
+    }
+    
 }
+
+
+
  //MARK: - CLLocationMaangerDelegate extension -
 extension MapViewController: CLLocationManagerDelegate {
     
@@ -128,6 +155,9 @@ extension MapViewController: MKMapViewDelegate{
         }
         return nil
     }
-    
-    
+    /*
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        debugPrint("inside the didSelect method")
+    }
+    */
 }

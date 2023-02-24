@@ -24,6 +24,8 @@ class MapViewAnnotationView: MKMarkerAnnotationView{
         }
     }
     
+    
+    
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
     }
