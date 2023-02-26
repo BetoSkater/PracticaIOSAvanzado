@@ -15,7 +15,7 @@ enum APIEndPoint: String{
 }
 
 enum APIMethod: String{
-   
+    
     case GET = "GET"
     case POST = "POST"
     

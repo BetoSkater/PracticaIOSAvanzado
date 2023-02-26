@@ -11,20 +11,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-       
-        //TODO: the first viewControler is heroListController!
         
         window = UIWindow(windowScene: windowScene)
         
         window?.rootViewController = AppTabBar()
         
         window?.makeKeyAndVisible()
-        
-       
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

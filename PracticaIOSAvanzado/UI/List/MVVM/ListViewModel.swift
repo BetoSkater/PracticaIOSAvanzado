@@ -12,71 +12,55 @@ class ListViewModel : NSObject{
     
     var context = AppDelegate.sharedAppDelegate.coreDataManager.managedContext
     
+    //MARK: - Init -
     override init() {
         
     }
-    //TODO: move to loginViewModel when it is done
-    //TEsting that all the apiCalls work:
-     //MARK: - Login -
+    //MARK: - Retrieving data from the API methods -
     
-    //var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
+    
     var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
-   
     var listViewDataRetrived: ((_ isHeroesInfoRetrieved: Bool) -> Void)?
     var mapViewDataRetrieved: ((_ isLocationInfoRetrived: Bool) -> Void)?
     var dataRetrievedFromApiAndStoredInCoreData: ((_ succesful: Bool) -> Void)?
-    
     var coreDataRetrieveHeroes: ((_ retrievedHerosFromCoreData: [Heroe]?, _ coreDataIsEmpty: Bool) -> Void)?
-    
     var deletedTokenFromKeychainSuccesful: ((_ succesfull: Bool) -> Void)?
     
-   // var token: String? //TODO: remove this token, retrieve it from keychain in each func
     var heroesList: [Heroe] = []
-    /*
-    func logIn(with email: String, and password: String) -> (){
-        
-        //Api call:
-        
-        NetworkLayer.shared.getToken(email: email, password: password) { token, error in
-            if let token {
-                //TODO: SAving token in Keychain missing
-                
-                debugPrint("Login Token: --> \(token)")
-                self.token = token //TODO: Remove this self.token = token
-                DispatchQueue.main.async {
-                    self.loginTransitionSuccessfull?(true) //TODO: Check the ?.
-                }
-            }
-        }
-    }
-    */
-     //TODO: - Move to heroes List viewModel, so here-
     
     func retrieveHeroes(){
         //ApiCall
-      
+        //var completeHeroesList: [Heroe] = []
+       // let group = DispatchGroup()
+        
         if !token.isEmpty{
+           // group.enter()
             NetworkLayer.shared.getHeroes(token: token) {[weak self] retrievedHeroes, error in
                 if let retrievedHeroes{
-          
+                    
+                    let range = retrievedHeroes.count
                     self?.listViewDataRetrived?(true)
-                  
-                    retrievedHeroes.forEach { heroe in
+                    
+                    for (index, heroe) in retrievedHeroes.enumerated(){
                         self?.retrieveLocations(for: heroe)
-                        if heroe == retrievedHeroes.last{
-                            //TODO: check if this work here
+                        //TODO: notification center
+                        if index == retrievedHeroes.count - 1{
+                           // group.leave()
                             self?.dataRetrievedFromApiAndStoredInCoreData?(true)
                         }
                     }
                 }
             }
         }//if  token
+       // group.wait()
+        //group.notify(queue: .main){
+        //    self.dataRetrievedFromApiAndStoredInCoreData?(true)
+        //}
     }
     
-
-    func retrieveLocations(for heroe: Heroe ) -> (){
-
+    func retrieveLocations(for heroe: Heroe) -> (){
         if !token.isEmpty{
+            
             NetworkLayer.shared.getLocations(token: token, heroId: heroe.id) { [weak self] allLocations, error in
                 if let allLocations {
                     self?.mapViewDataRetrieved?(true)
@@ -84,9 +68,9 @@ class ListViewModel : NSObject{
                         debugPrint("Location is nil")
                         return
                     }
-              
+                    
                     debugPrint("It seems location call work")
-                //TODO: try to do this with a map
+                    //TODO: try to do this with a map
                     let id = heroe.id
                     let name = heroe.name
                     let desc = heroe.description
@@ -106,19 +90,21 @@ class ListViewModel : NSObject{
                                           locationID: locationID,
                                           dateShow: date,
                                           longitud: longitud)
-                 
+                    
                     DispatchQueue.main.async {
                         self?.heroesList.append(heroToAdd)
                         self?.mapViewDataRetrieved?(true)
+                        
                         debugPrint("Heroes in coreData: \(self?.heroesList.count)")
                         self?.saveHero(saving: heroToAdd)
+                        
                     }
                 }
             }
         }//if let token
     }
     
-     //MARK: - Keychain related methods -
+    //MARK: - Keychain related methods -
     
     func retrieveTokenFromKeychain(){
         
@@ -135,17 +121,16 @@ class ListViewModel : NSObject{
         }
     }
     
-     //MARK: - CoreData -
+    //MARK: - CoreData -
     
-     func saveHero(saving heroe: Heroe){
-         
+    func saveHero(saving heroe: Heroe){
+        
         let heroeToStore = HeroeCD(context: context)
         
         let heroeIdUUID = UUID(uuidString: heroe.id)
         let heroeDate = Tools().stringToDate(this: heroe.dateShow!)
-        //"2022-09-11T00:00:00Z"
-        
-        heroeToStore.id = heroeIdUUID //as! UUID
+        //TODO: Try to do this with a map.
+        heroeToStore.id = heroeIdUUID
         heroeToStore.name = heroe.name
         heroeToStore.desc = heroe.description
         heroeToStore.favorite = heroe.favorite
@@ -163,7 +148,7 @@ class ListViewModel : NSObject{
         }
     }
     
-     func retrieveHeroesFromCoreData() -> (){
+    func retrieveHeroesFromCoreData() -> (){
         
         let fetchedHeroes: NSFetchRequest<HeroeCD> = HeroeCD.fetchRequest()
         
@@ -171,20 +156,18 @@ class ListViewModel : NSObject{
             let result = try context.fetch(fetchedHeroes)
             debugPrint("CoreData retrieved heroes: \(result)")
             
-                if !result.isEmpty{
-                    let mappedResult = Tools().heroeCDToHeroeList(map: result)
+            if !result.isEmpty{
+                let mappedResult = Tools().heroeCDToHeroeList(map: result)
                 //TODO: Call cloasure in here to pass the result. Mapear.
-                    self.coreDataRetrieveHeroes?(mappedResult, false)
-                }else{
-                    debugPrint("No data was retrieved from coreData")
-                    self.coreDataRetrieveHeroes?(nil, true)
-                }
-    
+                self.coreDataRetrieveHeroes?(mappedResult, false)
+            }else{
+                debugPrint("No data was retrieved from coreData")
+                self.coreDataRetrieveHeroes?(nil, true)
+            }
             
         } catch let error as NSError{
             debugPrint("CoreData retrieved heroes: \(error)")
             
         }
-        
     }
 }

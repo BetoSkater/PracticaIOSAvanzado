@@ -15,7 +15,7 @@ class CoreDataManager{
         self.modelName = modelName
     }
     
-     //MARK: - StoreContainer -
+    //MARK: - StoreContainer -
     
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
@@ -39,6 +39,6 @@ class CoreDataManager{
         }catch let error as NSError{
             debugPrint("CoreData Error: Error at saving the context \(error)")
         }
-
+        
     }
 }

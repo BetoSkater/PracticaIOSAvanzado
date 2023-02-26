@@ -7,17 +7,16 @@
 
 import Foundation
 /*
-//Ejemplo llamada, borrar.
-NetworkLayer.shared.getData<Heroe>(endPoint: .heroesEP, token: "asasas") { [Heroe], error in
-    
-}
-*/
+ //Ejemplo llamada, borrar.
+ NetworkLayer.shared.getData<Heroe>(endPoint: .heroesEP, token: "asasas") { [Heroe], error in
+ 
+ }
+ */
 final class NetworkLayer{
     
     static let shared = NetworkLayer()
     
-    //MARK: - Generic Call for all the cases -
-    //Meter un parametro enum para identificar el tipo de consulta que se va a llevar a cabo.
+    //MARK: - Login Call -
     func getToken(email: String, password: String ,completion: @escaping (String?, Error?) -> ()){
         //Generating URL
         guard let url = URL(string: APIEndPoint.baseURL.rawValue + APIEndPoint.loginEP.rawValue) else {
@@ -63,14 +62,12 @@ final class NetworkLayer{
         }
         task.resume()
     }
-   
-    //TODO: he de hacer dos, una para el login y otra para los metodos get.
     
-   
-        
+    
+    //MARK: - Generic API call to retrieve heroes and locations -
+    
     func getData<T:Decodable>(endPoint: APIEndPoint, token:String?, heroID: String?, completion: @escaping ([T]?, Error?) ->()){
         //TODO: si en la closure tengo T, cuando llame al metodo tengo que poner getData<[Heroe]>, si tengo [T], con llamarla como getData<Hero> creo que valdría.
-        
         
         //Unpackaging the token (all the uses of this function need a token)
         guard let token else{
@@ -137,15 +134,8 @@ final class NetworkLayer{
         
         
     }
-//Log: func login(email: String, password: String, completion: @escaping (String?, Error?) -> ()){
     
-//her: func retrieveHeroes(token: String?, completion: @escaping([Heroe]?, Error?)->()){
-
-//tra:func retrieveTransformations(token: String?, heroId: String?, completion: @escaping ([Transformation]?, Error?) -> ()){
-    
-//fav:func setFavourite(token: String?, heroId: String?, completion: @escaping (HTTPURLResponse?, Error?)->() ){
-    
-     //MARK: - Non generic get methods -
+    //MARK: - Non generic get methods for retrieving heroes and locations -
     
     func getHeroes(token:String, completion: @escaping ([Heroe]?, Error?) ->()){
         
@@ -160,7 +150,7 @@ final class NetworkLayer{
         
         var urlComponents = URLComponents()
         urlComponents.queryItems = [URLQueryItem(name: MiscValues.name.rawValue, value: MiscValues.emptyString.rawValue)]
-            
+        
         //Access Petition
         
         var urlRequest = URLRequest(url: url)
@@ -190,7 +180,7 @@ final class NetworkLayer{
             }
             
             guard let result = try? JSONDecoder().decode([Heroe].self, from: data)else{
-               debugPrint("Decoding error")
+                debugPrint("Decoding error")
                 completion(nil, NetworkError.decodingFailed)
                 return
             }
@@ -214,7 +204,7 @@ final class NetworkLayer{
         //Query:
         var urlComponents = URLComponents()
         urlComponents.queryItems = [URLQueryItem(name: MiscValues.id.rawValue, value: heroId)]
-            
+        
         //Access Petition
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = APIMethod.POST.rawValue
@@ -248,7 +238,7 @@ final class NetworkLayer{
             
             completion(result, nil)
         }
-        task.resume() 
+        task.resume()
     }
     
 }

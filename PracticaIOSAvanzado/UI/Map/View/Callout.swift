@@ -18,7 +18,7 @@ class Callout: UIView {
     
     var goingTotheHeroeDetailsView : ((Heroe) -> Void)?
     
-     //MARK: - Inits -
+    //MARK: - Inits -
     
     init(mapViewAnnotation: MapViewAnnotation){
         self.mapViewAnnotation = mapViewAnnotation
@@ -31,8 +31,8 @@ class Callout: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-     //MARK: - SetUp Methods -
- 
+    //MARK: - SetUp Methods -
+    
     func setUpView(){
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,13 +52,10 @@ class Callout: UIView {
         heroeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 5).isActive = true
         heroeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor,constant: 5).isActive = true
         
-       
-        
     }
     
-    
     private func setUpDateLabel(){
-        //dateLabel.text = mapViewAnnotation.heroeDate.formatted(date: .complete, time: .complete)
+        
         dateLabel.text = mapViewAnnotation.heroeDate
         
         addSubview(dateLabel)
@@ -69,12 +66,10 @@ class Callout: UIView {
         
     }
     
-    
     private func setUpHeroeImage(){
         heroeImage.kf.setImage(with: URL(string: mapViewAnnotation.heroeImage))
         heroeImage.clipsToBounds = true
         heroeImage.contentMode = .scaleAspectFill
-        
         
         addSubview(heroeImage)
         heroeImage.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +80,6 @@ class Callout: UIView {
         heroeImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         heroeImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
-        
         heroeImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goToDetailView)))
         
     }
@@ -93,16 +87,16 @@ class Callout: UIView {
         //TODO: Set navigation in here
         
         debugPrint("goingToDetailView activated.")
-      /*
-        let heroeModel = Heroe(id: "", name: "auxDate! ?? ", description: "desc", favorite: true, photo: "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/freezer-dragon-ball-bebe-abj.jpg?width=300")
-        
-        //let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
-        
-        self.mapViewAnnotation.heroeDate
-        
-   //     goingTotheHeroeDetailsView()
-        
-       // present(heroeDetailVC, animated: true)
-        */
+        /*
+         let heroeModel = Heroe(id: "", name: "auxDate! ?? ", description: "desc", favorite: true, photo: "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/freezer-dragon-ball-bebe-abj.jpg?width=300")
+         
+         //let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
+         
+         self.mapViewAnnotation.heroeDate
+         
+         //     goingTotheHeroeDetailsView()
+         
+         // present(heroeDetailVC, animated: true)
+         */
     }
 }

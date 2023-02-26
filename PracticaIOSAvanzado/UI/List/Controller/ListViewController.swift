@@ -8,15 +8,7 @@
 import UIKit
 
 class ListViewController: BaseViewController{
-    //TODO:
-    /*
-     let employeeCoreData = employeeAPI.map { employee in
-     //mapeo enplouyeeApi a employeeDB
-     //devolverlo de employeeDB
-     
-     return employeeDB
-     }
-     */
+   
     //MARK: - View Assigment -
     
     var mainView: ListView{self.view as! ListView}
@@ -24,24 +16,23 @@ class ListViewController: BaseViewController{
     private var listViewDataSource: ListViewDataSource?
     private var listViewDelegate: ListViewDelegate?
     
-    
-    
-    
     var heroesList: [Heroe] = []
     
     //MARK: - No Inits Requiered-
  
-    
-    
     //MARK: - ViewDidLoad & loadView overrides -
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Assigments
         listViewModel = ListViewModel()
+        
+        //Calling setup functions:
         setTableComponents()
         setDidTapOnCell()
-        //TODO: this way seems to be cooler  navigationItem.searchController
         setNavigationItemLogOutButton()
+        
+        //TODO: Add the group work here too to stop de coreData from loading as it shows all the data slightly before the login.
         
         
         checkIfUserIsAuthenticated()
@@ -59,34 +50,12 @@ class ListViewController: BaseViewController{
         view = ListView()
     }
     
-    //MARK: - LogInTest -
- /*
-   private func heroesTest(){
-        listViewModel?.retrieveHeroes()
-        self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
-            debugPrint("Heroe call worked")
-        }
-        self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
-            debugPrint("Location call worked")
-        }
-    }
-    //MARK: - Checking ig the location call works, remove -
-   private func locationsTest(){
-        let heroe = Heroe(id: "D13A40E5-4418-4223-9CE6-D2F9A28EBE94", name: "prueba", description: "prueba", favorite: true, photo: "photo prueba")
-        
-        listViewModel?.retrieveLocations(for: heroe)
-        
-        self.listViewModel?.mapViewDataRetrieved = { locationsRetrievedSuccess in
-            debugPrint("Location call worked")
-        }
-    }
-    */
-    
+
      //MARK: - setUpNavigationItemButton -
     
     func setNavigationItemLogOutButton(){
-        navigationItem.title = "Heroes List"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(performLogOutTapped))
+        navigationItem.title = TextString.firstTabBarTitle.rawValue
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: TextString.logOut.rawValue, style: .plain, target: self, action: #selector(performLogOutTapped))
         navigationItem.rightBarButtonItem?.tintColor = .red
     }
     
@@ -112,6 +81,7 @@ class ListViewController: BaseViewController{
            if value.isEmpty{
                
                let loginViewController = LoginViewController()
+               loginViewController.delegate = self
                loginViewController.modalPresentationStyle = .fullScreen
                
                self.navigationController?.present(loginViewController, animated: true)
@@ -149,9 +119,9 @@ class ListViewController: BaseViewController{
                 }else {
                     //TODO: Llamar al metodo que traiga los datos de la API
                     debugPrint("coreDataHeroes is empty")
-                    Task{
-                        await self.callApiAndStoreTheResultInCoreData()
-                    }
+                    
+                    self.callApiAndStoreTheResultInCoreData()
+                    
                     //self.callApiAndStoreTheResultInCoreData()
                 }
         }
@@ -160,7 +130,7 @@ class ListViewController: BaseViewController{
     }
     //Method to call teh APICall
     
-    private func callApiAndStoreTheResultInCoreData() async {
+    private func callApiAndStoreTheResultInCoreData() {
         self.listViewModel?.listViewDataRetrived = { retrievedHeroesSuccess in
             debugPrint("Heroe call worked")
         }
@@ -203,4 +173,13 @@ class ListViewController: BaseViewController{
     //load coreData info in the tableView
     
   
+}
+
+extension ListViewController: UserTokenHasBeenSavedDelegate{
+    func userTokenWasSaved(result: Bool) {
+        checkIfUserIsAuthenticated()
+        checkAndRetrieveHeroesFromCoreData()
+    }
+    
+    
 }

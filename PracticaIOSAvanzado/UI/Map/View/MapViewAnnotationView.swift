@@ -16,15 +16,8 @@ class MapViewAnnotationView: MKMarkerAnnotationView{
             detailCalloutAccessoryView = Callout(mapViewAnnotation: value)
             
             //TODO: Custom pin goes in here
-            
-           // let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-            
-            
-            
         }
     }
-    
-    
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

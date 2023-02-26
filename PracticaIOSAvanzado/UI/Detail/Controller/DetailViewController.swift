@@ -15,7 +15,7 @@ class DetailViewController: BaseViewController{
     
     private var heroeModel: Heroe?
     
-     //MARK: - Inits -
+    //MARK: - Inits -
     
     init(heroeModel: Heroe){
         super.init(nibName: nil, bundle: nil)
@@ -26,24 +26,22 @@ class DetailViewController: BaseViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-     //MARK: - viewDidLoad() and loadView() -
+    //MARK: - viewDidLoad() and loadView() -
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //Assigments
         detailViewModel = DetailViewModel()
-        //mainView.backgroundColor = .white
-        //TODO: add here the button functionality, there's no button
-       updateUI()
-       
+        
+        //SetUp methods
+        updateUI()
     }
-    
     
     override func loadView() {
         view = DetailView()
     }
     
-     //MARK: - update UI -
+    //MARK: - update UI -
     
     private func updateUI(){
         if let heroeModel{

@@ -12,7 +12,7 @@ class KeychainManager{
     
     static let shared = KeychainManager()
     
-     //MARK: - Keychain management methods -
+    //MARK: - Keychain management methods -
     
     func storeToken(this token: String){
         //Token encoding:
@@ -41,7 +41,7 @@ class KeychainManager{
         var token = ""
         //Query:
         let query: [String: Any] = [
-        
+            
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: MiscValues.token.rawValue,
             kSecMatchLimit as String: kSecMatchLimitOne,
@@ -60,19 +60,18 @@ class KeychainManager{
                let tokenDecoded = String(data: tokenData, encoding: .utf8){
                 
                 
-               token = tokenDecoded
+                token = tokenDecoded
                 debugPrint("Token value is \(token)")
                 
             }else{
                 debugPrint("There wasa problem while fetching the token from keychain")
-               
             }
         }
         return token
     }
     
     
-     //MARK: - Delete token -
+    //MARK: - Delete token -
     
     func deletetoken() -> Bool{
         

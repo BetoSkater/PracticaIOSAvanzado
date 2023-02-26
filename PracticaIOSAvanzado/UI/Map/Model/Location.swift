@@ -14,9 +14,8 @@ struct Location:Codable{
     let id: String
     let hero: Hero
     
-    //D13A40E5-4418-4223-9CE6-D2F9A28EBE94
 }
-
+// This struct is needed in order to decode the hero id:
 struct Hero: Codable{
     let id: String
 }

@@ -9,9 +9,9 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-     //MARK: - CoreData -
-
+    
+    //MARK: - CoreData -
+    
     lazy var coreDataManager: CoreDataManager = .init(modelName: "Heroes")
     
     static let sharedAppDelegate: AppDelegate = {

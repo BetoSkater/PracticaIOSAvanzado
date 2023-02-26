@@ -11,10 +11,10 @@ class ListViewDelegate: NSObject, UITableViewDelegate{
     
     var didTapOnCell: ((Int) -> Void)?
     
-     //MARK: - Delegate Methods -
+    //MARK: - Delegate Methods -
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        110
+        120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

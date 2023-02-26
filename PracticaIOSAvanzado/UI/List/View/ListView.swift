@@ -10,13 +10,12 @@ import UIKit
 class ListView: UIView{
     
     let tableSearchBar = {
-       
+        
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         return searchBar
     }()
-    
     
     let tableView = {
         
@@ -26,7 +25,7 @@ class ListView: UIView{
         
         return table
     }()
-     //MARK: - Inits -
+    //MARK: - Inits -
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,34 +36,28 @@ class ListView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-     //MARK: - Set Up View -
+    //MARK: - Set Up View -
     
     func setUpView(){
         
-        backgroundColor = .white
+        backgroundColor = UIColor(named: ResourceName.gokuOrange.rawValue)
         
         addSubview(tableSearchBar)
         addSubview(tableView)
-  
         
         NSLayoutConstraint.activate([
-        
+            
             tableSearchBar.topAnchor.constraint(equalTo: topAnchor, constant: 100),
             tableSearchBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             tableSearchBar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
             tableSearchBar.heightAnchor.constraint(equalToConstant: 40),
             
-        
+            
             tableView.topAnchor.constraint(equalTo: tableSearchBar.bottomAnchor,constant: 10),
             tableView.leadingAnchor.constraint(equalTo: tableSearchBar.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: tableSearchBar.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor,constant: -100),
             
-            
-        
-        
         ])
-        
     }
-    
 }

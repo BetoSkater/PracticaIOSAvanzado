@@ -13,49 +13,57 @@ class LoginViewController: BaseViewController{
     
     var mainView: LoginView{self.view as! LoginView}
     var loginViewModel: LoginViewModel?
+    var delegate: UserTokenHasBeenSavedDelegate?
     
-    //TODO: No init? I didn't need it here the last time, proably in the herolist
-    
-     //MARK: - vireDidLoad and loadView overrrides -
+    //MARK: - viewDidLoad and loadView overrrides -
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loginViewModel = LoginViewModel()
-     
-        //TODO: add here the button functionality
+        
+        
         mainView.loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
     }
     
-
     override func loadView() {
         view = LoginView()
     }
     
-     //MARK: - Button methods -
-   
-   @objc func loginButtonTapped(sender: UIButton!){
-       performLogIn()
-   }
-   
-   func performLogIn(){
-       //Retrieving login info:
-       if !mainView.emailTextField.text!.isEmpty && !mainView.passTextField.text!.isEmpty{
-           
-           let email = mainView.emailTextField.text!
-           let password = mainView.passTextField.text!
-           
-           loginViewModel?.logIn(with: email, and: password)
-           
-           self.loginViewModel?.loginTransitionSuccessfull = {userLogged in
-           //TODO: El dismis va aqui.
-           debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
-               self.dismiss(animated: true)
-           }
-           
-       }
-   }
+    //MARK: - Button methods -
     
+    @objc func loginButtonTapped(sender: UIButton!){
+        performLogIn()
+    }
     
+    //MARK: - performLoginMethod -
+    
+    func performLogIn(){
+        //Retrieving login info:
+        if !mainView.emailTextField.text!.isEmpty && !mainView.passTextField.text!.isEmpty{
+            
+            let email = mainView.emailTextField.text!
+            let password = mainView.passTextField.text!
+            
+            loginViewModel?.logIn(with: email, and: password)
+            
+            self.loginViewModel?.loginTransitionSuccessfull = {userLogged in
+                
+                debugPrint("LogIn API call is successfull. It goes all the way to the dismiss screen. Check that the token is saved.")
+               
+                if self.delegate != nil{
+                    self.dismiss(animated: true)
+                    self.delegate?.userTokenWasSaved(result: true)
+                }
+             //   self.dismiss(animated: true)
+                
+            }
+        }
+    }
+    
+}
+ //MARK: - Protocol userTokenIsSaved -
+protocol UserTokenHasBeenSavedDelegate{
+    func userTokenWasSaved(result: Bool)
 }

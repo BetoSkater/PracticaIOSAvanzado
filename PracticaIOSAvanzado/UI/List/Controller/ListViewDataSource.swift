@@ -11,7 +11,7 @@ final class ListViewDataSource: NSObject, UITableViewDataSource{
     
     private let tableView: UITableView
     
-    //At first, there are no heroes, onces coreData gives data, the assigment refreses the tableview
+    //At first, there are no heroes, once coreData gives data back, the assigment refreses the tableview
     private(set) var list: [Heroe] = [] {
         didSet{
             DispatchQueue.main.async {
@@ -19,7 +19,7 @@ final class ListViewDataSource: NSObject, UITableViewDataSource{
             }
         }
     }
-     //MARK: - Init  -
+    //MARK: - Init  -
     
     init(tableView: UITableView, list: [Heroe] = []) {
         self.tableView = tableView
@@ -33,7 +33,7 @@ final class ListViewDataSource: NSObject, UITableViewDataSource{
     }
     
     
-     //MARK: - Protocol methods -
+    //MARK: - Protocol methods -
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         list.count
@@ -47,6 +47,4 @@ final class ListViewDataSource: NSObject, UITableViewDataSource{
         
         return cell
     }
-    
-    
 }

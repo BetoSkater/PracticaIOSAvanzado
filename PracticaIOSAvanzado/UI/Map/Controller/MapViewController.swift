@@ -11,8 +11,7 @@ import MapKit
 
 class MapViewController: BaseViewController{
     
-     //MARK: - View Assigment -
-    
+    //MARK: - View Assigment -
     
     var mainView: MapView{self.view as! MapView}
     private var mapViewModel: MapViewModel?
@@ -22,13 +21,13 @@ class MapViewController: BaseViewController{
     var heroesList: [Heroe] = []
     
     
-     //MARK: - viewDidLoad and loadView -
+    //MARK: - viewDidLoad and loadView -
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Setting values:
         mapViewModel = MapViewModel()
-    
+        
         locationManager = CLLocationManager()
         locationManager?.requestWhenInUseAuthorization()
         locationManager?.delegate = self
@@ -36,11 +35,12 @@ class MapViewController: BaseViewController{
         mainView.mapFrame.delegate = self
         mainView.mapFrame.mapType = .standard
         
+        navigationItem.title = TextString.secondTabBarTitle.rawValue
         
-        //Retrieven the data needed:
+        //Retring the data needed:
         retrieveHeroesFromCoreData()
         
-        
+        //Setting annotations
         mainView.mapFrame.register(MapViewAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         
         let annotations = heroesList.map {MapViewAnnotation(heroe: $0)}
@@ -53,11 +53,11 @@ class MapViewController: BaseViewController{
         view = MapView()
     }
     
-     //MARK: - Method to retrieve data from coreData -
+    //MARK: - Method to retrieve data from coreData -
     
     func retrieveHeroesFromCoreData(){
         mapViewModel?.coreDataRetrieveHeroes = { coreDataHeroes, coreDataIsEmpty in
-           
+            
             if let coreDataHeroes{
                 self.heroesList = coreDataHeroes
                 
@@ -68,20 +68,20 @@ class MapViewController: BaseViewController{
     }
     
     //MARK: - Anotation Methods -
-
-   func createHeroeAnnotation(with heroe: Heroe){
-       let annotation = MKPointAnnotation()
-       
-       let latitud = Tools.shared.fromOptionalStringToDouble(this: heroe.latitud)
-       let longitud = Tools.shared.fromOptionalStringToDouble(this: heroe.longitud)
-       
-       
-       annotation.coordinate = CLLocationCoordinate2D(latitude: latitud, longitude: longitud)
-       annotation.title = heroe.name
-       annotation.subtitle = heroe.dateShow
-       
-       mainView.mapFrame.addAnnotation(annotation)
-   }
+    
+    func createHeroeAnnotation(with heroe: Heroe){
+        let annotation = MKPointAnnotation()
+        
+        let latitud = Tools.shared.fromOptionalStringToDouble(this: heroe.latitud)
+        let longitud = Tools.shared.fromOptionalStringToDouble(this: heroe.longitud)
+        
+        
+        annotation.coordinate = CLLocationCoordinate2D(latitude: latitud, longitude: longitud)
+        annotation.title = heroe.name
+        annotation.subtitle = heroe.dateShow
+        
+        mainView.mapFrame.addAnnotation(annotation)
+    }
     
     func createAnnotations(from heroes: [Heroe]){
         heroes.forEach(createHeroeAnnotation)
@@ -89,87 +89,3 @@ class MapViewController: BaseViewController{
     
 }
 
-
-
- //MARK: - CLLocationMaangerDelegate extension -
-extension MapViewController: CLLocationManagerDelegate {
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        
-        if #available(iOS 14.0, *){
-            
-            switch manager.authorizationStatus{
-            case .notDetermined:
-                debugPrint("Not determined yet.")
-            case .restricted:
-                debugPrint("Restricted")
-            case .denied:
-                debugPrint("Denied")
-            case .authorizedAlways:
-                debugPrint("Authorized always")
-                
-            case .authorizedWhenInUse:
-                debugPrint("Authorized when un use")
-                
-            @unknown default:
-                debugPrint("Unknow status")
-            }
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            debugPrint("Not determined yet")
-        case .restricted:
-            debugPrint("Restricted")
-        case .denied:
-            debugPrint("Denied")
-        case .authorizedAlways:
-            debugPrint("Authorized always")
-        case .authorizedWhenInUse:
-            debugPrint("Authorized when in use")
-        @unknown default:
-            debugPrint("Unknow status")
-        }
-    }
-}
-
- //MARK: - MKMapViewDelegate -
-
-extension MapViewController: MKMapViewDelegate{
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let id = MKMapViewDefaultAnnotationViewReuseIdentifier
-        
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: id)
-        
-        if let annotation = annotation as? MapViewAnnotation{
-            
-            annotationView?.canShowCallout = true
-            annotationView?.detailCalloutAccessoryView = Callout(mapViewAnnotation: annotation)
-        
-            return annotationView
-        }
-        return nil
-    }
-    //TODO: To show the detail view this does not work, this code shows the detail view without showing the annotation in the map.
-    /*
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        debugPrint("inside the didSelect method")
-        
-        let auxName = view.annotation?.title
-        let auxDate = view.annotation?.subtitle
-        let photo = "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/freezer-dragon-ball-bebe-abj.jpg?width=300"
-        
-        
-        let heroeModel = Heroe(id: "", name: "auxDate! ?? ", description: "desc", favorite: true, photo: photo)
-        
-        let heroeDetailVC = DetailViewController(heroeModel: heroeModel)
-        
-        self.present(heroeDetailVC, animated: true)
-    }
-    */
-}

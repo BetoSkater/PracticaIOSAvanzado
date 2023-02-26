@@ -9,36 +9,33 @@ import UIKit
 
 class LoginViewModel: NSObject{
     
+    var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
+    var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
+    
+    //MARK: - Init -
     override init() {
         
     }
-    
-    var loginTransitionSuccessfull: ((_ userIsLogged: Bool) ->Void)?
-    var tokenRetrievedFromKeychain: ((_ tokenRetrieved: String) -> Void)?
-    //Token
+    //MARK: - Login method -
     
     func logIn(with email: String, and password: String) -> (){
-        
         //Api call:
         NetworkLayer.shared.getToken(email: email, password: password) { token, error in
             if let token {
-             
+                
                 debugPrint("Login Token: --> \(token)")
-                //self.token = token //TODO: Remove this self.token = token
+                
                 DispatchQueue.main.async {
-                    //TODO: SAving token in Keychain missing
+                    
                     self.storeTokenAfterLogIn(this: token)
-                    self.loginTransitionSuccessfull?(true) //TODO: Check the ?.
+                    self.loginTransitionSuccessfull?(true)
                 }
             }
         }
     }
     
+    //MARK: - Keychain methods -
     func storeTokenAfterLogIn(this token: String){
-        
         KeychainManager.shared.storeToken(this: token)
     }
-    
-    
-    
 }

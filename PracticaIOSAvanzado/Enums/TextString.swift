@@ -9,5 +9,9 @@ import Foundation
 
 enum TextString: String {
     case firstTabBar = "Heroes List"
+    case firstTabBarTitle = "Heroes List "
+    case logOut = "Log Out"
+    
     case secondTabBar = "Heroes Location"
+    case secondTabBarTitle =  "Heroes locations around the world"
 }

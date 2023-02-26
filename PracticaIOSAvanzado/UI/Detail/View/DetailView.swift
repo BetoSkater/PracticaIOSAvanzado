@@ -11,15 +11,9 @@ class DetailView: UIView{
     
     //MARK: - SubViws -
     
-    //TODO: adding backgroundcolor in the controller? I do think that is the best way
-   
-        
     let detailImage: UIImageView = {
         let image = UIImageView()
-       
-        //TODO: Delete, just for test.
-        image.kf.setImage(with: URL(string: "https://cdn.alfabetajuega.com/alfabetajuega/2020/12/goku1.jpg?width=300"))
-      //  image.backgroundColor = .systemPink
+        
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -29,10 +23,8 @@ class DetailView: UIView{
     let detailName: UILabel = {
         let label = UILabel()
         
-        label.backgroundColor = .systemMint
-        label.text = "Heroe"
-        label.font = .boldSystemFont(ofSize: 15)
-        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.textColor = UIColor(named: ResourceName.gokuBlue.rawValue)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -41,10 +33,7 @@ class DetailView: UIView{
     let detailDescription : UILabel = {
         let label = UILabel()
         
-        label.text = "BLAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-        //label.font = .boldSystemFont(ofSize: 15)
-        label.backgroundColor = .red
-        label.textColor = .black
+        label.textColor = UIColor(named: ResourceName.gokuBlue.rawValue)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,7 +54,8 @@ class DetailView: UIView{
     //MARK: - Methods -
     
     func setUpViews(){
-        backgroundColor = .orange
+        backgroundColor = UIColor(named: ResourceName.gokuOrange.rawValue)
+        
         addSubview(detailImage)
         addSubview(detailName)
         addSubview(detailDescription)
@@ -81,25 +71,23 @@ class DetailView: UIView{
             detailName.topAnchor.constraint(equalTo: detailImage.bottomAnchor, constant: 15),
             detailName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             detailName.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            detailName.heightAnchor.constraint(equalToConstant: 25),
+            detailName.heightAnchor.constraint(equalToConstant: 20),
             
             
-            detailDescription.topAnchor.constraint(equalTo: detailName.bottomAnchor, constant: 15),
+            detailDescription.topAnchor.constraint(equalTo: detailName.bottomAnchor, constant: 10),
             detailDescription.leadingAnchor.constraint(equalTo: detailImage.leadingAnchor),
             detailDescription.trailingAnchor.constraint(equalTo: detailImage.trailingAnchor),
             detailDescription.heightAnchor.constraint(equalToConstant: 350),
-        
+            
         ])
     }
     
-    
-     //MARK: - update UI method -
+    //MARK: - update UI method -
     
     func configureDetailView(_ model: Heroe){
         self.detailImage.kf.setImage(with: URL(string: model.photo))
         self.detailName.text = model.name
         self.detailDescription.text = model.description
     }
-    
 }
 
